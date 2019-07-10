@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<students>
+    <student>
+        <scorename id="heima0001">
+            <ename>zhangsan</ename>
+            <age>23</age>
+            <gender>male</gender>
+        </scorename>
+    </student>
+    <student>
+        <scorename id="heima0002">
+            <ename>xiabi</ename>
+            <age>23</age>
+            <gender>female</gender>
+        </scorename>
+    </student>
+
+</students>

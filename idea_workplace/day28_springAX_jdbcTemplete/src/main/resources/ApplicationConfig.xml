@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?> <beans xmlns="http://www.springframework.org/schema/beans"  xmlns:context="http://www.springframework.org/schema/context"
+                                              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"     xsi:schemaLocation="http://www.springframework.org/schema/beans
+                                                http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context         http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--引入jdbc配置文件位置-->
+    <context:component-scan base-package="com.itheima"></context:component-scan>
+    <!-- 告知 spring 创建容器时要扫描的包 -->
+    <context:property-placeholder location="classpath:druid.properties"></context:property-placeholder>
+    <bean id="datasource" class="com.alibaba.druid.pool.DruidDataSource" >
+        <property name="driverClassName" value="${driverClassName}"></property>
+        <property name="url" value="${url}"></property>
+        <property name="username" value="${JDBCusername}"></property>
+        <property name="password" value="${password}"></property>
+        <property name="initialSize" value="${initialSize}"></property>
+        <property name="maxActive" value="${maxActive}"></property>
+        <property name="maxWait" value="${maxWait}"></property>
+
+    </bean>
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <constructor-arg name="dataSource" ref="datasource"></constructor-arg>
+    </bean>
+</beans>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+<bean id="beanfactory" class="com.itheima.beanFactory.BeanFactory" scope="prototype"></bean>
+ <bean id="accountdaoimpl" factory-bean="beanfactory" factory-method="getAccountImpl" >
+ </bean>
+<bean id="accountserviceimpl" factory-bean="beanfactory" factory-method="getaccountservice" scope="prototype"/>
+ <bean id="account1" class="com.itheima.dao.impl.AccountImpl" scope="singleton">
+  <property name="name" value="lisi"></property>
+  <property name="age" value="23"></property>
+  <property name="birthday" ref="nowtime"></property>
+  <property name="list">
+   <list>
+    <value>123</value>
+    <value>456</value>
+    <value>789</value>
+   </list>
+  </property>
+  <property name="map">
+   <props>
+    <prop key="test">123</prop>
+   </props>
+  </property>
+ </bean>
+ <bean id="nowtime" class="java.util.Date"></bean>
+ </beans>

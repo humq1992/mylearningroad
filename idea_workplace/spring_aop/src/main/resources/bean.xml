@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <bean id="accountService" class="com.itheima.service.impl.AccountServiceImpl"></bean>
+    <bean id="logger" class="com.itheima.utils.Logger"></bean>
+
+    <!--配置aop-->
+<aop:config>
+    <!--配置切面-->
+    <aop:pointcut id="pt1" expression="execution(* com.itheima.service.impl.AccountServiceImpl.*(..))"></aop:pointcut>
+    <!--依次为返回值类型 ， 包名 ，    类名，       方法名，方法参数-->
+    <aop:aspect id="logAdvice" ref="logger"> <!--ref可以配置切面中使用的增强类-->
+<aop:before method="printLogger" pointcut-ref="pt1"></aop:before>
+<aop:after method="printLogger" pointcut-ref="pt1"></aop:after>
+<aop:after-returning method="printLogger" pointcut-ref="pt1"></aop:after-returning>
+<aop:after-throwing method="printLogger" pointcut-ref="pt1"></aop:after-throwing>
+
+    </aop:aspect>
+
+</aop:config>
+
+</beans>

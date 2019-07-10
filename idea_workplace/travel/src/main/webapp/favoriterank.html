@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>收藏排行榜</title>
+        <link rel="stylesheet" type="text/css" href="css/common.css">
+        <link rel="stylesheet" type="text/css" href="css/ranking-list.css">
+        <script src="js/jquery-3.3.1.js"></script>
+        <script src="js/getParameter.js"></script>
+        <script>
+            $(function () {
+                //加载页面后发送请求获得排行
+               getrank(1,null,null,null)
+
+
+
+
+
+
+            })
+            function search() {
+                $("#search").click(function () {
+                    var rname=$("#routename").val();
+
+                    var minprice = $("#min").val();
+
+                    var maxprice = $("#max").val();
+
+                    getrank(1,rname,minprice,maxprice);
+
+                })
+
+
+            }
+
+            function getrank(currentpage,rname,minprice,maxprice) {
+                //传入参数为线路名称，最低价格，最高价格  返回值应为pagebean类型
+                //在get方法在页面加载完第一次 地址就会跳转 如果再引用 则会再上传重复的地址  变得无法搜索到内容
+                $.post("route/rankbyfavorite",{'currentpage':currentpage,'rname':rname,'minprice':minprice,'maxprice':maxprice},function (json) {
+                   var num = json.count;
+                   var list=json.routes;
+                   var currentpage = json.currentpage;
+                   var totalpage=json.totalpage;
+                   var pagesize=json.pagesize;
+                   var content="";
+                   for( var i=1;i<=list.length;i++){
+                       content+='<li id="li_1">\n' +
+                           '                        <span class="num one">'+(currentpage)*i+'</span>\n' +
+                           '                        <a href="route_detail.html?rid='+list[i-1].rid+'"><img src="'+list[i-1].rimage+'" alt=""></a>\n' +
+                           '                        <h4><a href="route_detail.html?rid='+list[i-1].rid+'">'+list[i-1].rname+'</a></h4>\n' +
+                           '                        <p>\n' +
+                           '                            <b class="price">&yen;<span>'+list[i-1].price+'</span>起</b>\n' +
+                           '                          <span class="shouchang">已收藏'+list[i-1].count+'次</span>\n' +
+                           '                        </p>\n' +
+                           '                    </li>'
+                   }
+                   $("#ul_1").html(content);
+                   //获得页面输入的搜索参数
+                    var _rname=$("#routename").val();
+                    var routename=decodeURIComponent(_rname);
+                    //从页面中获得的为String字符串在内容拼接中 如果要当作参数展示 字符串 必须在引号内；
+                    //同样min 和max在获取值为长度为0的字符串 并不是空  不做处理则拼接也需要在引号内 所以做判断赋值为空；
+                    var min = $("#min").val();
+                    if(min==""){
+                        min=null;
+                    }
+                    var max = $("#max").val();
+                    if(max==""){
+                        max=null;
+                    }
+
+                    var lastpage=currentpage-1;
+                    var nextpage=currentpage+1;
+                    var begin = currentpage - 4;
+                    var end = currentpage + 5;
+                    if (totalpage < 10) {
+                        begin = 1;
+                        end = totalpage;
+                    }
+                    if (totalpage > 10 && currentpage < 6) {
+                        begin = 1;
+                        end = 10
+                    }
+
+                    if (totalpage > 10 && currentpage > (totalpage - 9)) {
+                        begin = totalpage - 9;
+                        end = totalpage;
+                    }
+
+                    if (lastpage < 1) {
+                        lastpage = 1;
+                    }
+                    if(nextpage>totalpage){
+                        nextpage=totalpage;
+                    }
+                    var selectcontent="";
+                   selectcontent+=' <li onclick="getrank('+1+',\''+routename+'\','+min+','+max+')" class="threeword"><a href="javascript:void(0)">首页</a></li>\n' +
+                       '                    <li onclick="getrank('+lastpage+',\''+routename+'\','+min+','+max+')"  class="threeword"><a href="javascript:void(0)">上一页</a></li>';
+                   for(var j=begin;j<=end;j++){
+                       if(j==currentpage){
+                           selectcontent+=' <li onclick="getrank('+j+',\''+routename+'\','+min+','+max+')" style="background-color: yellow"><a href="javascript:void(0)">'+j+'</a></li>';
+                       }else {
+                           selectcontent+=' <li onclick="getrank('+j+',\''+routename+'\','+min+','+max+')"><a href="javascript:void(0)">'+j+'</a></li>';
+
+                       }
+
+                   }
+                   selectcontent+='<li onclick="getrank('+nextpage+',\''+routename+'\','+min+','+max+')"  class="threeword"><a href="javascript:void(0);">下一页</a></li>\n' +
+                       '                    <li onclick="getrank('+totalpage+',\''+routename+'\','+min+','+max+')" class="threeword"><a href="javascript:void(0);">末页</a></li>';
+
+
+                    $("#ul_2").html(selectcontent);
+
+                })
+                
+            }
+        </script>
+    </head>
+    <body>
+    <!--引入头部-->
+    <div id="header"></div>
+        <div class="contant">
+            <div class="shaixuan">
+                <span>线路名称</span>
+                <input id="routename" name="rname" type="text">
+                <span>金额</span>
+                <input id="min" name="minprice" type="text">~<input id="max" name="maxprice" type="text">
+                <button id="search" onclick="search()">搜索</button>
+            </div>
+            <div class="list clearfix">
+                <ul id="ul_1">
+
+
+                </ul>
+            </div>
+            <div class="pageNum">
+                <ul id="ul_2">
+
+                </ul>
+            </div>
+        </div>
+    	
+         <!--导入底部-->
+   		 <div id="footer"></div>
+    <!--导入布局js，共享header和footer-->
+    <script type="text/javascript" src="js/include.js"></script>
+    </body>
+</html>

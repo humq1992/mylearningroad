@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+<img id="img1" src="img/banner_1.jpg" sizes="100%">
+<input type="button" id="stop" value="stop">
+<script>
+
+    var a = 1;
+
+    function fun() {
+        var img = document.getElementById("img1");
+        a++;
+        if (a > 3) {
+            a = 1;
+        }
+        img.src = "img/banner_" + a + ".jpg";
+
+    }
+
+    var interval = setInterval(fun, 300);
+    var st = document.getElementById("stop");
+    st.onclick=function (ev) { clearInterval(interval) }
+</script>
+
+</body>
+</html>

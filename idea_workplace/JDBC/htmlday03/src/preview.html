@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+<input name="time" id="t1">
+<script>
+
+    function gettime() {
+        var d=new Date();
+        var fullYear = d.getFullYear();
+        var month = d.getMonth();
+        var date = d.getDate();
+        var hours = d.getHours();
+        var minutes = d.getMinutes();
+        var seconds = d.getSeconds();
+        t=fullYear+"年"+month+"月"+date+"日  "+hours+":"+minutes+":"+seconds
+        document.getElementById("t1").value=t }
+        setInterval("gettime()",100)
+</script>
+</body>
+</html>

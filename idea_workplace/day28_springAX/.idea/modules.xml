@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/day28_springAX.iml" filepath="$PROJECT_DIR$/day28_springAX.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../day28_springAX_jdbcTemplete/day28_springAX_jdbcTemplete.iml" filepath="$PROJECT_DIR$/../day28_springAX_jdbcTemplete/day28_springAX_jdbcTemplete.iml" />
+    </modules>
+  </component>
+</project>

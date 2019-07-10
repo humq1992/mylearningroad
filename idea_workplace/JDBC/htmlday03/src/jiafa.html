@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="text" name="num1" id="num1">
+<input type="text" name="num2" id="num2">
+<input type="button" name="butt" onclick="sum()" id="but" value="计算">
+<input type="text" name="result" id="result"  >
+<script>
+    function sum() {
+        var num1 = document.getElementById("num1").value;
+        var num2 = document.getElementById("num2").value;
+        var Reg=/\d{1,}/;
+
+        if(Reg.test(num1)&&Reg.test(num2)){
+            document.getElementById("result").value=+num1+(+num2);
+        }else{
+            alert("wrong")
+        }
+
+
+
+    }
+</script>
+
+</body>
+</html>

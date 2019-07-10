@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/js/jquery-3.3.1.min.js">
+
+    </script>
+    <script>
+        $(function () {
+          $.get("memberServlet",function (data) {
+              for(var i=0;i<data.length;i++){
+                  var obj=data[i];
+                  $("#tab1").append("<tr><td>"+obj.id+"</td><td>"+obj.name+"</td><td>"+obj.gender+"</td><td>"+obj.age+"</td><td>"+obj.address+"</td><td>"+obj.qq+"</td></tr>");
+              }
+          })
+            $.get("memberServlet",function (data) {
+                for(var i=0;i<data.length;i++){
+                    var obj=data[i];
+                    $("#se1").append("<option>"+obj.address+"</option>")
+                }
+            })
+
+
+        })
+
+
+    </script>
+
+</head>
+<body>
+<table border="1px solid"  width="75%" id="tab1">
+     <tr>
+         <th>编号</th>
+         <th>姓名</th>
+         <th>性别</th>
+         <th>年龄</th>
+         <th>地址</th>
+         <th>qq</th>
+     </tr>
+</table>
+<select id="se1">
+
+</select>
+</body>
+</html>

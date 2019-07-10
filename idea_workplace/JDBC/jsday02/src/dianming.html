@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>点名神器具</title>
+    <style>
+        #div1 {
+            width: 150px;
+            height: 50px;
+            border: 1px solid red;
+            margin: 0px auto;
+            line-height: 50px;
+            text-align: center;
+            border-radius: 10px;
+            background-color: red;
+        }
+
+        #div2 {
+            text-align: center;
+        }
+
+        .inp {
+            height: 25px;
+            width: 50px;
+            background-color: black;
+            text-align: center;
+            color: white;
+            border-radius: 5px;
+            border: 0px solid red;
+
+        }
+
+        .div4 {
+            border: 1px solid blue;
+            width: 80px;
+            height: 40px;
+            float: left;
+            border-radius: 5px;
+            text-align: center;
+            color: black;
+            margin: 5px 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="div1"></div>
+<hr>
+<div id="div2"><input type="button" value="开始" class="inp" onclick="start()">
+    <input type="button" value="停止" class="inp" onclick="stop()"></div>
+<div id="member">
+
+</div>
+<script>
+
+    var mem = document.getElementById("member");
+    var name1 = ["李杀神", "王诛魔", "刘斩仙", "赵日天", "熊霸天", "蔡徐坤", "玄虚子", "依山静", "断水流", "孙笑川", "卜严峻", "龙傲天", "南宫无敌", "雄霸天下", "步惊云", "聂风", "丘处机", "尹志平"];
+    for (var i = 0; i < name1.length; i++) {
+        mem.innerHTML += "<div class='div4' id='dive" + i + "'>" + name1[i] + "</div>";
+    }
+
+    function starttemp() {
+        var number = Math.random() * (name1.length);
+        var number2 = Math.floor(number);
+        document.getElementById("div1").innerHTML = name1[number2];
+        var names = document.getElementsByClassName("div4");
+        for(var i=0; i<names.length; i++){
+
+            names[i].style.backgroundColor="";
+
+        }
+        for(var j=0;j<names.length;j++){
+            if(names[j].innerHTML==name1[number2]){
+                names[j].style.backgroundColor="yellow";
+            }
+
+        }
+
+
+    }
+
+    var interval;
+
+    function start() {
+        if (!interval) {
+            interval = setInterval(starttemp, 100);
+
+
+        }
+    }
+
+    function stop() {
+        if (interval) {
+            clearInterval(interval);
+            interval=null;
+        }
+
+    }
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>choujiang</title>
+    <script type="text/javascript" src="../js/jquery-3.3.1.min.js"></script>
+    <script>
+        var imgs = ["../img/img1.JPG",
+            "../img/img2.jpg",
+            "../img/img3.jpg",
+            "../img/img4.jpg",
+            "../img/img5.png",
+            "../img/img6.jpg",
+            "../img/img7.JPG",
+            "../img/img8.JPG",
+            "../img/img9.jpg"
+        ];
+        var index;
+        var startid;
+        //资源载入结束后的功能
+        $(function () {
+            $("#startID").prop("disabled",false);
+            $("#stopID").prop("disabled",true);
+            //为开始按钮绑定事件
+            $("#startID").click(function () {
+                startid=setInterval(function () {
+                    $("#startID").prop("disabled",true);
+                    $("#stopID").prop("disabled",false);
+                    index=Math.floor(Math.random()*9);
+                    $("#img1ID").prop("src",imgs[index]);
+                    
+                },100)
+            });
+            $("#stopID").click(function () {
+                $("#startID").prop("disabled",false);
+                $("#stopID").prop("disabled",true);
+                clearInterval(startid);
+                $("#img2ID").prop("src",imgs[index]).hide();
+
+                //显示1秒之后
+                $("#img2ID").show(1000);
+            });
+
+
+        });
+
+
+
+
+
+    </script>
+</head>
+<body>
+<!-- 小像框 -->
+<div style="border-style:dotted;width:160px;height:100px">
+    <img id="img1ID" src="../img/img1.jpg" style="width:160px;height:100px"/>
+</div>
+
+<!-- 大像框 -->
+<div
+        style="border-style:double;width:800px;height:500px;position:absolute;left:500px;top:10px">
+    <img id="img2ID" src="../img/img1.jpg" width="800px" height="500px"/>
+</div>
+
+<!-- 开始按钮 -->
+<input
+        id="startID"
+        name="startID"
+        type="button"
+        value="点击开始"
+        style="width:150px;height:150px;font-size:22px">
+
+<!-- 停止按钮 -->
+<input
+        id="stopID"
+        name="startID"
+        type="button"
+        value="点击停止"
+        style="width:150px;height:150px;font-size:22px">
+</body>
+</html>

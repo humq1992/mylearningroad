@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+    <context:component-scan base-package="com.itheima"></context:component-scan>
+    <!--配置视图解析器来为controller中的返回字符串组装为响应地址并返回-->
+    <bean id="internalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/pages/"/>
+        <property name="suffix" value=".jsp"></property>
+    </bean>
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="1000000"></property>
+    </bean>
+    <!--配置资源文档-->
+    <mvc:resources mapping="/js/**" location="/js/"/>
+
+
+
+    <!--mvc:annotation-driven自动加载RequestMappingHandlerMapping（处理映射器)和RequestMappingHandlerAdapter(处理适配器)-->
+    <!--使用conversion-service激活自动类型转换器-->
+    <mvc:annotation-driven ></mvc:annotation-driven>
+    
+</beans>

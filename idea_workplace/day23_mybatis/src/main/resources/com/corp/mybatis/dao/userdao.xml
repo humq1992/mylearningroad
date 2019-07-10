@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.corp.mybatis.dao.userdao">
+    <select id="findall" resultType="com.corp.mybatis.domain.User">
+        SELECT * FROM user;
+    </select>
+    <select id="findone" parameterType="Integer" resultType="com.corp.mybatis.domain.User">
+        SELECT * FROM  user WHERE id=#{id};
+    </select>
+    <insert id="adduser"  parameterType="com.corp.mybatis.domain.User"  keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO USER (username,birthday,sex,address)VALUES (#{username},#{birthday},#{sex},#{address});
+    </insert>
+   <update id="updateuser" parameterType="com.corp.mybatis.domain.User" >
+       UPDATE USER SET username=#{username},sex=#{sex},address=#{address},birthday=#{birthday} WHERE id=#{id};
+   </update>
+    <select id="findbyvo" parameterType="com.corp.mybatis.domain.vo" resultType="com.corp.mybatis.domain.User">
+        SELECT *FROM USER
+        <where>
+            <if test="user.username!=null and user.username!=''">
+                and username=#{user.username}
+            </if>
+            <if test="user.sex!=null and user.sex!=''">
+                and sex=#{user.sex}
+            </if>
+        </where>
+
+    </select>
+</mapper>
