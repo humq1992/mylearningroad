@@ -1,0 +1,7 @@
+com\itheima\controller\TypeTemplateController.class
+com\itheima\controller\SellerController.class
+com\itheima\controller\LoginController.class
+com\itheima\controller\GoodsController.class
+com\itheima\controller\UpdateController.class
+com\itheima\controller\ItemCatController.class
+com\itheima\service\UserDetailsServiceImpl.class

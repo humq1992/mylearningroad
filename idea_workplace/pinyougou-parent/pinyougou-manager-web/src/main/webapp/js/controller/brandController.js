@@ -1,0 +1,51 @@
+app.controller('brandController',function($scope,$http,$controller,brandService){
+	$controller('baseController',{$scope:$scope});//继承基础控制器；
+	$scope.findAll=function(){
+		brandService.findAll().success(function(data){
+			$scope.list=data;
+		});
+	}
+	$scope.findPage=function(currentPage,pageSize){
+		brandService.findPage(currentPage,pageSize).success(function(data){
+			$scope.list=data.rows;
+			$scope.paginationConf.totalItems=data.total;
+			
+		})
+	}
+	$scope.save=function(){
+		brandService.save($scope.tbBrand).success(function(data){
+			if(data.success){
+				$scope.reloadList();
+			}else{
+				alert(data.message)
+			}
+		})
+	}
+	$scope.findone=function(id){
+		brandService.findone(id).success(function(data){
+			$scope.tbBrand=data;
+		})
+	}
+	$scope.update=function(){
+		brandService.update$scope.tbBrand.success(function(data){
+			if(data.success){
+				$scope.reloadList();
+			}else{
+				alert(data.message)
+			}
+		})
+	}
+	$scope.dele=function(){
+		brandService.dele($scope.selectids).success(function(data){
+			$scope.reloadList()
+		})
+	}
+	$scope.searchModel={};
+	$scope.search=function(currentPage,pageSize){
+		brandService.search(currentPage,pageSize,$scope.searchModel).success(function(data){
+			$scope.paginationConf.totalItems=data.total;
+			$scope.list=data.rows
+		})
+	}
+	
+})

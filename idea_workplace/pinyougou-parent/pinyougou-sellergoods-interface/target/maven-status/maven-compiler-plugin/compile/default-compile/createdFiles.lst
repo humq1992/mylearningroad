@@ -1,0 +1,9 @@
+com\itheima\service\SpecificationService.class
+com\itheima\service\ItemService.class
+com\itheima\service\BrandService.class
+com\itheima\service\SellerService.class
+com\itheima\service\SpecificationOptionService.class
+com\itheima\service\GoodsService.class
+com\itheima\service\TypeTemplateService.class
+com\itheima\service\GoodsDescService.class
+com\itheima\service\ItemCatService.class

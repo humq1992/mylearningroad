@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:jms="http://www.springframework.org/schema/jms"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+    http://www.springframework.org/schema/jms
+    http://www.springframework.org/schema/jms/spring-jms-3.2.xsd">
+
+    <bean id="targetConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+        <property name="brokerURL" value="tcp://192.168.25.129:61616"></property>
+    </bean>
+
+    <bean id="connectionFactory" class="org.springframework.jms.connection.SingleConnectionFactory">
+        <property name="targetConnectionFactory" ref="targetConnectionFactory"></property>
+    </bean>
+<!--配置的队列目的信息需要与你需要消费的发送者配置的队列一样-->
+    <bean id="topicPageDestination" class="org.apache.activemq.command.ActiveMQTopic">
+        <constructor-arg value="pinyougou_topic_page"></constructor-arg>
+    </bean>
+    <!--配置监听器-->
+    <bean class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <property name="connectionFactory" ref="connectionFactory" />
+        <property name="destination" ref="topicPageDestination" />
+        <property name="messageListener" ref="pageListener" />
+    </bean>
+    <!--删除页面 -->
+    <bean id="topicPageDeleteDestination"
+          class="org.apache.activemq.command.ActiveMQTopic">
+        <constructor-arg value="pinyougou_topic_page_delete"/>
+    </bean>
+    <!-- 消息监听容器 -->
+    <bean class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <property name="connectionFactory" ref="connectionFactory" />
+        <property name="destination" ref="topicPageDeleteDestination" />
+        <property name="messageListener" ref="pageDeleteListener" />
+    </bean>
+
+
+</beans>
